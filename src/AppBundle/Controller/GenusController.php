@@ -12,19 +12,14 @@ class GenusController extends Controller
 
     /**
      * @Route("/genus/{genusName}")
-     * @throws \RuntimeException
-     * @throws \Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException
      */
     public function showAction($genusName)
     {
-        $templating = $this->container->get('templating');
-
-        $html = $templating->render(
+        return $this->render(
             'genus/show.html.twig',
             ['name' => $genusName
-            ]);
-
-        return new Response($html);
+            ]
+        );
     }
 
 }
