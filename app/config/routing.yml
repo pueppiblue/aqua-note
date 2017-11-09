@@ -1,8 +1,14 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
 
 homepage:
     path: /
     defaults:
         _controller: AppBundle:Main:homepage
+
+app_genus_new:
+    path: /genus/new
+    defaults:
+        _controller: AppBundle:Genus:new
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

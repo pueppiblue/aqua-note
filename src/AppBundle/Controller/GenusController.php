@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Genus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,11 +28,11 @@ class GenusController extends Controller
         $cache = $this->get('doctrine_cache.providers.markdown_cache');
 
         if ($cache->contains($key)) {
-            $funFact= $cache->fetch(($key));
+            $funFact = $cache->fetch(($key));
         } else {
             sleep(1);
             $funFact = $mdParser->transform($funFact);
-            $cache->save($key,$funFact);
+            $cache->save($key, $funFact);
         }
 
         return $this->render(
@@ -64,5 +66,22 @@ class GenusController extends Controller
 //        return new Response(json_encode($data));
         return new JsonResponse($data);
 
+    }
+
+    public function newAction()
+    {
+        $genus = new Genus();
+        $genus->setName('Octopus ' . random_int(1, 100));
+
+        $em = $this->getDoctrine()->getManager();
+
+        try {
+            $em->persist($genus);
+            $em->flush();
+        } catch (Exception $e) {
+            throw new Exception($e);
+        }
+
+        return new Response('Item saved.');
     }
 }
