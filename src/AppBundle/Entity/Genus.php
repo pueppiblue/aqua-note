@@ -5,7 +5,6 @@ namespace AppBundle\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity
@@ -32,6 +31,16 @@ class Genus
      * @ORM\Column(type="integer")
      */
     private $speciesCount;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublished;
+
+    public function setIsPublished(bool $isPublished): void
+    {
+        $this->isPublished = $isPublished;
+    }
 
     /**
      * @ORM\Column(type="string", nullable=true)
