@@ -32,7 +32,7 @@ class Genus
     private $speciesCount;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $funFact;
 
@@ -70,7 +70,7 @@ class Genus
         return $this->name;
     }
 
-    public function setName($name): string
+    public function setName($name): void
     {
         $this->name = $name;
     }

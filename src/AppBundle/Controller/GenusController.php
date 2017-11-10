@@ -72,6 +72,8 @@ class GenusController extends Controller
     {
         $genus = new Genus();
         $genus->setName('Octopus ' . random_int(1, 100));
+        $genus->setSpeciesCount(random_int(100,10000));
+        $genus->setSubfamily("Septopaediae");
 
         $em = $this->getDoctrine()->getManager();
 
