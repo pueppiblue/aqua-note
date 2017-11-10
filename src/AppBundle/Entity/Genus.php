@@ -3,7 +3,9 @@
 namespace AppBundle\Entity;
 
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity
@@ -73,5 +75,10 @@ class Genus
     public function setName($name): void
     {
         $this->name = $name;
+    }
+
+    public function getUpdatedAt(): DateTime
+    {
+        return new DateTime('-'.random_int(0,100).'days');
     }
 }
