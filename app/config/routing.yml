@@ -4,6 +4,11 @@ homepage:
     defaults:
         _controller: AppBundle:Main:homepage
 
+app_genus_show:
+    path: /genus/{genusName}
+    defaults:
+        _controller: AppBundle:Genus:show
+
 app_genus_list:
     path: /genus
     defaults:
