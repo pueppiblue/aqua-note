@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\AppBundle;
 use AppBundle\Entity\Genus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -63,8 +64,20 @@ class GenusController extends Controller
             'notes' => $notes,
         ];
 
-//        return new Response(json_encode($data));
-        return new JsonResponse($data);
+        return new JsonResponse($data); //return new Response(json_encode($data));
+
+    }
+
+    public function listAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $genusList = $em->getRepository(Genus::class)->findAll();
+
+
+        return $this->render('genus/list.html.twig',[
+            'genusList' => $genusList
+        ]);
+
 
     }
 
