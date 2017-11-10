@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +37,16 @@ class Genus
      * @ORM\Column(type="boolean")
      */
     private $isPublished = true;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GenusNote", mappedBy="genus")
+     */
+    private $notes;
+
+    public function __construct()
+    {
+        $notes = new ArrayCollection();
+    }
 
     public function setIsPublished(bool $isPublished): void
     {
@@ -89,5 +100,10 @@ class Genus
     public function getUpdatedAt(): DateTime
     {
         return new DateTime('-'.random_int(0,100).'days');
+    }
+
+    public function getNotes()
+    {
+        return $this->notes;
     }
 }
