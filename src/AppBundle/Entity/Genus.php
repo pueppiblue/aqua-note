@@ -22,12 +22,55 @@ class Genus
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $subfamily;
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $speciesCount;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $funFact;
+
+    public function getSubfamily(): string
+    {
+        return $this->subfamily;
+    }
+
+    public function setSubfamily(string $subfamily): void
+    {
+        $this->subfamily = $subfamily;
+    }
+
+    public function getSpeciesCount(): int
+    {
+        return $this->speciesCount;
+    }
+
+    public function setSpeciesCount(int $speciesCount): void
+    {
+        $this->speciesCount = $speciesCount;
+    }
+
+    public function getFunFact(): string
+    {
+        return $this->funFact;
+    }
+    public function setFunFact(string $funFact): void
+    {
+        $this->funFact = $funFact;
+    }
+
     public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    public function setName($name): string
     {
         $this->name = $name;
     }

@@ -82,6 +82,6 @@ class GenusController extends Controller
             throw new Exception($e);
         }
 
-        return new Response('Item saved.');
+        return new Response('<html><body>Genus saved.</body></html>');
     }
 }
