@@ -58,7 +58,7 @@ class Genus
         $this->speciesCount = $speciesCount;
     }
 
-    public function getFunFact(): string
+    public function getFunFact(): ?string
     {
         return $this->funFact;
     }

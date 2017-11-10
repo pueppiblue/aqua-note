@@ -21,9 +21,7 @@ class GenusController extends Controller
      */
     public function showAction($genusName)
     {
-        $funFact = 'Octopuses can change the color of their body in just *three-tenths* of a second.';
-        $key = md5($funFact);
-
+/*
         $mdParser = $this->container->get('markdown.parser');
         $cache = $this->get('doctrine_cache.providers.markdown_cache');
 
@@ -34,12 +32,14 @@ class GenusController extends Controller
             $funFact = $mdParser->transform($funFact);
             $cache->save($key, $funFact);
         }
+*/
+        $genus = $this->getDoctrine()->getManager()->getRepository(Genus::class)
+            ->findOneBy(['name' => $genusName]);
 
         return $this->render(
             'genus/show.html.twig',
             [
-                'name' => $genusName,
-                'funFact' => $funFact,
+                'genus' => $genus,
             ]
         );
     }
