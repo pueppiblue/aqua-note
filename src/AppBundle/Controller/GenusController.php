@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\AppBundle;
 use AppBundle\Entity\Genus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,6 +17,7 @@ class GenusController extends Controller
     /**
      * @param $genusName
      * @return Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function showAction($genusName)
     {
@@ -35,6 +35,10 @@ class GenusController extends Controller
 */
         $genus = $this->getDoctrine()->getManager()->getRepository(Genus::class)
             ->findOneBy(['name' => $genusName]);
+
+        if (!$genus) {
+            throw $this->createNotFoundException('Genus not found.');
+        }
 
         return $this->render(
             'genus/show.html.twig',
