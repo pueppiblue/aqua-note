@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Genus;
+use AppBundle\Entity\GenusNote;
+use Doctrine\Common\Collections\Collection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,18 +23,18 @@ class GenusController extends Controller
      */
     public function showAction($genusName)
     {
-/*
-        $mdParser = $this->container->get('markdown.parser');
-        $cache = $this->get('doctrine_cache.providers.markdown_cache');
+        /*
+                $mdParser = $this->container->get('markdown.parser');
+                $cache = $this->get('doctrine_cache.providers.markdown_cache');
 
-        if ($cache->contains($key)) {
-            $funFact = $cache->fetch(($key));
-        } else {
-            sleep(1);
-            $funFact = $mdParser->transform($funFact);
-            $cache->save($key, $funFact);
-        }
-*/
+                if ($cache->contains($key)) {
+                    $funFact = $cache->fetch(($key));
+                } else {
+                    sleep(1);
+                    $funFact = $mdParser->transform($funFact);
+                    $cache->save($key, $funFact);
+                }
+        */
         $genusRepository = $this->getDoctrine()->getRepository(Genus::class);
         $genus = $genusRepository->findOneBy(['name' => $genusName]);
 
@@ -40,11 +42,24 @@ class GenusController extends Controller
             throw $this->createNotFoundException('Genus not found.');
         }
 
+        $recentNotes = $this->getRecentNotes($genus->getNotes(), 3);
+
         return $this->render(
             'genus/show.html.twig',
             [
                 'genus' => $genus,
+                'recentNotesCount' => count($recentNotes),
+
             ]
+        );
+    }
+
+    private function getRecentNotes(Collection $notes, int $monthCount): Collection
+    {
+        return $notes->filter(
+            function (GenusNote $note) use ($monthCount) {
+                return $note->getCreatedAt() > new \DateTime('-' . $monthCount . ' months');
+            }
         );
     }
 
@@ -61,7 +76,7 @@ class GenusController extends Controller
                 'id' => $note->getId(),
                 'date' => $note->getCreatedAt()->format('Y-m-d'),
                 'username' => $note->getUsername(),
-                'avatarUri' => '/images/'.$note->getUserAvatarFilename(),
+                'avatarUri' => '/images/' . $note->getUserAvatarFilename(),
                 'note' => $note->getNote(),
             ];
         }
@@ -80,7 +95,7 @@ class GenusController extends Controller
         $genusList = $repo->findAllPublishedOrderedBySize();
 
 
-        return $this->render('genus/list.html.twig',[
+        return $this->render('genus/list.html.twig', [
             'genusList' => $genusList
         ]);
 
@@ -91,7 +106,7 @@ class GenusController extends Controller
     {
         $genus = new Genus();
         $genus->setName('Octopus ' . random_int(1, 100));
-        $genus->setSpeciesCount(random_int(100,10000));
+        $genus->setSpeciesCount(random_int(100, 10000));
         $genus->setSubfamily("Septopaediae");
 
         $em = $this->getDoctrine()->getManager();

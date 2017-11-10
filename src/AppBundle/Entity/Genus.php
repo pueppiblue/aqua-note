@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +41,7 @@ class Genus
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\GenusNote", mappedBy="genus")
+     * @ORM\OrderBy({"createdAt"="DESC"})
      */
     private $notes;
 
@@ -103,9 +105,9 @@ class Genus
     }
 
     /**
-     * @return ArrayCollection|GenusNote[]
+     * @return Collection|GenusNote[]
      */
-    public function getNotes()
+    public function getNotes(): Collection
     {
         return $this->notes;
     }
