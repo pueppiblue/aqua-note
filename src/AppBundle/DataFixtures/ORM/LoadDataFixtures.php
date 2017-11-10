@@ -10,7 +10,26 @@ class LoadDataFixtures implements FixtureInterface
  {
     public function load(ObjectManager $manager): void
     {
-        $object = Fixtures::load(__DIR__.'/genus.yml', $manager);
+        $object = Fixtures::load(
+            __DIR__.'/genus.yml',
+            $manager,
+            [
+                'providers' => [$this],
+            ]);
 
+    }
+
+    public function genus()
+    {
+        $genera = [
+            'Octopus', 'Balaena', 'Orcinus', 'Hippocampus',
+            'Asterias', 'Amphiprion', 'Carcharodon', 'Aurelia',
+            'Cucumaria', 'Balistoides', 'Paralithodes', 'Chelonia',
+            'Trichechus', 'Eumetopias'
+        ];
+
+        $key = array_rand($genera);
+
+        return $genera[$key];
     }
 }
