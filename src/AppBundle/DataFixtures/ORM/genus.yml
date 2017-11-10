@@ -4,3 +4,4 @@ AppBundle\Entity\Genus:
         speciesCount: <numberBetween(100, 100000)>
         subFamily: <text(15)>
         funFact: <sentence()>
+        isPublished: <boolean(75)>
