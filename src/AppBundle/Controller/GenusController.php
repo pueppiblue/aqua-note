@@ -61,13 +61,15 @@ class GenusController extends Controller
             ->findAllRecentNotesForGenus($genus, $monthCount);
 
         return $notesList;
+
         /*
+        /* use an ArrayCollection filter to filter by the createdAt property
         return $notes->filter(
             function (GenusNote $note) use ($monthCount) {
                 return $note->getCreatedAt() > new \DateTime('-' . $monthCount . ' months');
             }
         );
-    */
+        */
     }
 
     /**
@@ -99,7 +101,7 @@ class GenusController extends Controller
     public function listAction()
     {
         $repo = $this->getDoctrine()->getRepository('AppBundle:Genus');
-        $genusList = $repo->findAllPublishedOrderedBySize();
+        $genusList = $repo->findAllPublishedOrderedByRecentlyActive();
 
 
         return $this->render('genus/list.html.twig', [
