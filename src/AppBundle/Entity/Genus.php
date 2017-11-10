@@ -45,7 +45,7 @@ class Genus
 
     public function __construct()
     {
-        $notes = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function setIsPublished(bool $isPublished): void
@@ -102,6 +102,9 @@ class Genus
         return new DateTime('-'.random_int(0,100).'days');
     }
 
+    /**
+     * @return ArrayCollection|GenusNote[]
+     */
     public function getNotes()
     {
         return $this->notes;

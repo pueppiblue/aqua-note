@@ -33,8 +33,8 @@ class GenusController extends Controller
             $cache->save($key, $funFact);
         }
 */
-        $genus = $this->getDoctrine()->getManager()->getRepository(Genus::class)
-            ->findOneBy(['name' => $genusName]);
+        $genusRepository = $this->getDoctrine()->getRepository(Genus::class);
+        $genus = $genusRepository->findOneBy(['name' => $genusName]);
 
         if (!$genus) {
             throw $this->createNotFoundException('Genus not found.');
@@ -49,19 +49,22 @@ class GenusController extends Controller
     }
 
     /**
-     * @Route("/genus/{genusName}/notes", name="genus_show_notes")
+     * @Route("/genus/{name}/notes", name="genus_show_notes")
      * @Method("GET")
-     * @param $genusName
-     * @return Response
      */
-    public function getNotes($genusName)
+    public function getNotesAction(Genus $genus)
     {
+        $notes = [];
 
-        $notes = [
-            ['id' => 1, 'username' => 'AquaPelham', 'avatarUri' => '/images/leanna.jpeg', 'note' => 'Octo asked me a riddle, outsmartedme', 'date' => 'Aug. 20 2017'],
-            ['id' => 2, 'username' => 'AquaRyan', 'avatarUri' => '/images/ryan.jpeg', 'note' => 'Octo asked me a riddle, outsmartedme', 'date' => 'Aug. 20 2017'],
-            ['id' => 3, 'username' => 'AquaPelham', 'avatarUri' => '/images/leanna.jpeg', 'note' => 'Octo asked me a riddle, outsmartedme', 'date' => 'Aug. 20 2017'],
-        ];
+        foreach ($genus->getNotes() as $note) {
+            $notes[] = [
+                'id' => $note->getId(),
+                'date' => $note->getCreatedAt()->format('Y-m-d'),
+                'username' => $note->getUsername(),
+                'avatarUri' => '/images/'.$note->getUserAvatarFilename(),
+                'note' => $note->getNote(),
+            ];
+        }
 
         $data = [
             'notes' => $notes,
