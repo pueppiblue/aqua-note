@@ -42,7 +42,7 @@ class GenusController extends Controller
             throw $this->createNotFoundException('Genus not found.');
         }
 
-        $recentNotes = $this->getRecentNotes($genus->getNotes(), 3);
+        $recentNotes = $this->getRecentNotes($genus, 3);
 
         return $this->render(
             'genus/show.html.twig',
@@ -54,13 +54,20 @@ class GenusController extends Controller
         );
     }
 
-    private function getRecentNotes(Collection $notes, int $monthCount): Collection
+    private function getRecentNotes(Genus $genus, int $monthCount)
     {
+
+        $notesList = $this->getDoctrine()->getRepository(GenusNote::class)
+            ->findAllRecentNotesForGenus($genus, $monthCount);
+
+        return $notesList;
+        /*
         return $notes->filter(
             function (GenusNote $note) use ($monthCount) {
                 return $note->getCreatedAt() > new \DateTime('-' . $monthCount . ' months');
             }
         );
+    */
     }
 
     /**
