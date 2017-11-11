@@ -45,3 +45,6 @@ services:
     AppBundle\Service\MarkdownTransformer:
         public: true
 
+    # not need with autoconfigure
+    AppBundle\Twig\MarkdownExtension:
+        tags: [{name: 'twig.extension'}]
