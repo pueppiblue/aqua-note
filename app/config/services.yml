@@ -33,3 +33,11 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+#    Knp\Bundle\MarkdownBundle\MarkdownParserInterface:
+#        alias: 'markdown.parser.max'
+
+    app.markdown_transformer:
+        class: 'AppBundle\Service\MarkdownTransformer'
+        arguments: ['@markdown.parser']
+        public: true
