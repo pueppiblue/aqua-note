@@ -26,7 +26,8 @@ class Genus
     private $name;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SubFamily")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $subfamily;
     /**
@@ -60,12 +61,12 @@ class Genus
      */
     private $funFact;
 
-    public function getSubfamily(): string
+    public function getSubfamily(): SubFamily
     {
         return $this->subfamily;
     }
 
-    public function setSubfamily(string $subfamily): void
+    public function setSubfamily(SubFamily $subfamily): void
     {
         $this->subfamily = $subfamily;
     }
