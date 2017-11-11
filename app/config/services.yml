@@ -47,4 +47,5 @@ services:
 
     # not need with autoconfigure
     AppBundle\Twig\MarkdownExtension:
+        arguments: ['@AppBundle\Service\MarkdownTransformer']
         tags: [{name: 'twig.extension'}]
