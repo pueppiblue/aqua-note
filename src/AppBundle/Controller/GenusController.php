@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Genus;
 use AppBundle\Entity\GenusNote;
+use AppBundle\Service\MarkdownTransformer;
 use Doctrine\Common\Collections\Collection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -43,11 +44,14 @@ class GenusController extends Controller
         }
 
         $recentNotes = $this->getRecentNotes($genus, 3);
+        $transformer = new MarkdownTransformer();
+        $funFact = $transformer->parse($genus->getFunFact());
 
         return $this->render(
             'genus/show.html.twig',
             [
                 'genus' => $genus,
+                'funFact' => $funFact,
                 'recentNotesCount' => count($recentNotes),
 
             ]
