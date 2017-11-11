@@ -22,18 +22,19 @@ class GenusController extends Controller
      */
     public function showAction($genusName)
     {
-        /*
+/*
                 $mdParser = $this->container->get('markdown.parser');
                 $cache = $this->get('doctrine_cache.providers.markdown_cache');
 
+                $key = md5($funFact);
                 if ($cache->contains($key)) {
                     $funFact = $cache->fetch(($key));
                 } else {
                     sleep(1);
                     $funFact = $mdParser->transform($funFact);
                     $cache->save($key, $funFact);
-                }
-        */
+                }*/
+
         $genusRepository = $this->getDoctrine()->getRepository(Genus::class);
         $genus = $genusRepository->findOneBy(['name' => $genusName]);
 

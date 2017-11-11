@@ -39,6 +39,9 @@ services:
     #Knp\Bundle\MarkdownBundle\MarkdownParserInterface:
     #    alias: 'markdown.parser'
 
+    # alias cache interface
+    Doctrine\Common\Cache\Cache: '@doctrine_cache.providers.markdown_cache'
 
     AppBundle\Service\MarkdownTransformer:
         public: true
+

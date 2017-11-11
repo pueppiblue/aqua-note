@@ -28,14 +28,17 @@ class GenusEntityRepository extends EntityRepository
      */
     public function findAllPublishedOrderedByRecentlyActive(): array
     {
-        return $this->createQueryBuilder('genus')
+        $query = $this->createQueryBuilder('genus')
             ->select('genus')
             ->where('genus.isPublished = :isPublished')
             ->setParameter('isPublished', true)
             ->leftJoin('genus.notes', 'genus_note')
+            // short version of
+            //->leftJoin('genus.notes', 'genus_note', 'WITH', 'genus = genus_note.genus')
             ->orderBy('genus_note.createdAt', 'DESC')
-            ->getQuery()
-            ->execute();
+            ->getQuery();
+
+        return $query->execute();
     }
 
     /**
