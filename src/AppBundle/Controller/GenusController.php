@@ -44,7 +44,7 @@ class GenusController extends Controller
         }
 
         $recentNotes = $this->getRecentNotes($genus, 3);
-        $transformer = new MarkdownTransformer();
+        $transformer = new MarkdownTransformer($this->get('markdown.parser'));
         $funFact = $transformer->parse($genus->getFunFact());
 
         return $this->render(
