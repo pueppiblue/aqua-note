@@ -26,6 +26,6 @@ class GenusType extends AbstractType
 
     public function getBlockPrefix(): ?string
     {
-        return 'app_bundle_genus_type';
+        return 'genus_type';
     }
 }
