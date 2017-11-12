@@ -61,7 +61,7 @@ class Genus
      */
     private $funFact;
 
-    public function getSubfamily(): SubFamily
+    public function getSubfamily(): ?SubFamily
     {
         return $this->subfamily;
     }
@@ -71,7 +71,7 @@ class Genus
         $this->subfamily = $subfamily;
     }
 
-    public function getSpeciesCount(): int
+    public function getSpeciesCount(): ?int
     {
         return $this->speciesCount;
     }
@@ -90,7 +90,7 @@ class Genus
         $this->funFact = $funFact;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -108,7 +108,7 @@ class Genus
     /**
      * @return Collection|GenusNote[]
      */
-    public function getNotes(): Collection
+    public function getNotes(): ?Collection
     {
         return $this->notes;
     }
