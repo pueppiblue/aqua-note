@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Genus;
 use AppBundle\Form\GenusType;
+use Doctrine\ORM\OptimisticLockException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -40,6 +42,17 @@ class GenusAdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $genus = $form->getData();
+            $repo = $this->getDoctrine()->getRepository(Genus::class);
+
+            try {
+                $repo->save($genus);
+            } catch (OptimisticLockException $e) {
+                // todo: throw an error
+            }
+
+            $this->addFlash('success', 'New Genus created');
+
             return $this->redirectToRoute('admin_genus_list');
         }
 
