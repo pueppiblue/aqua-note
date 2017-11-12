@@ -13,8 +13,11 @@ class GenusType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('subfamily')
             ->add('speciesCount')
-            ->add('funFact');
+            ->add('funFact')
+            ->add('isPublished')
+            ->add('firstDiscoveredAt');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

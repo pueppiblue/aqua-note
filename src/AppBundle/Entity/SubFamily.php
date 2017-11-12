@@ -22,12 +22,17 @@ class SubFamily
      */
     private $name;
 
+    public function __toString(): ?string
+    {
+        return $this->getName();
+    }
+
     public function getId()
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
