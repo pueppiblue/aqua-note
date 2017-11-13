@@ -3,9 +3,13 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Genus;
+use AppBundle\Repository\SubFamilyEntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\SubFamily;
 
 class GenusType extends AbstractType
 {
@@ -13,10 +17,18 @@ class GenusType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('subfamily')
+            ->add('subfamily', EntityType::class, [
+                'class' => SubFamily::class,
+                'placeholder' => 'Choose a Sub Family!',
+                'query_builder' => function(SubFamilyEntityRepository $repo) {
+                    return $repo->createAlphabeticalQueryBuilder();
+                },
+            ])
             ->add('speciesCount')
             ->add('funFact')
-            ->add('isPublished')
+            ->add('isPublished', ChoiceType::class, [
+                'choices' => ['Yes' => true, 'No' => false]
+            ])
             ->add('firstDiscoveredAt');
     }
 
