@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SubFamilyEntityRepository")
  * @ORM\Table(name="sub_family")
  */
 class SubFamily
@@ -22,7 +22,7 @@ class SubFamily
      */
     private $name;
 
-    public function __toString(): ?string
+    public function __toString(): string
     {
         return $this->getName();
     }
@@ -32,7 +32,7 @@ class SubFamily
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
