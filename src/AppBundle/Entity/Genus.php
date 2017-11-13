@@ -37,7 +37,7 @@ class Genus
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Range(min=0, minMessage="No negative Speciescount. orly")
+     * @Assert\Range(min=0, minMessage="genus.speciesCount.notInRange")
      * @ORM\Column(type="integer")
      */
     private $speciesCount;
