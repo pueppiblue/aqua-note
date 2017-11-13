@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Genus
 {
     /**
+     * @var integer
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
@@ -97,7 +98,7 @@ class Genus
 
     public function getFunFact(): ?string
     {
-        return '**TEST** '.$this->funFact;
+        return $this->funFact;
     }
     public function setFunFact(?string $funFact): void
     {
@@ -140,5 +141,13 @@ class Genus
     public function getisPublished(): bool
     {
         return $this->isPublished;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 }
