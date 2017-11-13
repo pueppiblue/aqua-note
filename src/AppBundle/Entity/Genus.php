@@ -36,6 +36,11 @@ class Genus
     private $speciesCount;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $funFact;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $isPublished = true;
@@ -61,11 +66,6 @@ class Genus
         $this->isPublished = $isPublished;
     }
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $funFact;
-
     public function getSubfamily(): ?SubFamily
     {
         return $this->subfamily;
@@ -90,7 +90,7 @@ class Genus
     {
         return '**TEST** '.$this->funFact;
     }
-    public function setFunFact(string $funFact): void
+    public function setFunFact(?string $funFact): void
     {
         $this->funFact = $funFact;
     }

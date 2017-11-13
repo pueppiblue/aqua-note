@@ -35,7 +35,8 @@ class GenusType extends AbstractType
                 'html5' => false,
                 'attr' => [
                     'class' => 'js-datepicker',
-                    'data-provide' => 'datepicker'
+                    'data-provide' => 'datepicker',
+                    'data-date-format' => 'yyyy-mm-dd',
                 ]
             ]);
     }
