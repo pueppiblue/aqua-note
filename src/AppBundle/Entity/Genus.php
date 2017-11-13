@@ -7,6 +7,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GenusEntityRepository")
@@ -20,17 +21,23 @@ class Genus
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
     private $name;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SubFamily")
      * @ORM\JoinColumn(nullable=false)
      */
     private $subfamily;
+
     /**
+     * @Assert\NotBlank()
+     * @Assert\Range(min=0, minMessage="No negative Speciescount. orly")
      * @ORM\Column(type="integer")
      */
     private $speciesCount;
@@ -46,6 +53,8 @@ class Genus
     private $isPublished = true;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Date()
      * @ORM\Column(type="date")
      */
     private $firstDiscoveredAt;
