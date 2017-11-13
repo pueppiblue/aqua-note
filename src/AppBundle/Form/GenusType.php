@@ -7,6 +7,7 @@ use AppBundle\Repository\SubFamilyEntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\SubFamily;
@@ -29,7 +30,14 @@ class GenusType extends AbstractType
             ->add('isPublished', ChoiceType::class, [
                 'choices' => ['Yes' => true, 'No' => false]
             ])
-            ->add('firstDiscoveredAt');
+            ->add('firstDiscoveredAt', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => [
+                    'class' => 'js-datepicker',
+                    'data-provide' => 'datepicker'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
