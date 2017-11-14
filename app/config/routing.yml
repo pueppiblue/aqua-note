@@ -4,6 +4,11 @@ homepage:
     defaults:
         _controller: AppBundle:Main:homepage
 
+security_login:
+    path: /login
+    defaults:
+        _controller: AppBundle:Security:login
+
 app_genus_show:
     path: /genus/{genusName}
     defaults:
