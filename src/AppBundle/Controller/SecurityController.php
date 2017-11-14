@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Form\LoginForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 
 class SecurityController extends Controller
@@ -27,5 +28,10 @@ class SecurityController extends Controller
                 'error' => $lastError
             ]
         );
+    }
+
+    public function logoutAction()
+    {
+        throw new Exception('This should not be reached.');
     }
 }

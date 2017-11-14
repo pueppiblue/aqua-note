@@ -9,6 +9,11 @@ security_login:
     defaults:
         _controller: AppBundle:Security:login
 
+security_logout:
+    path: /logout
+    defaults:
+        _controller: AppBundle:Security:logout
+
 app_genus_show:
     path: /genus/{genusName}
     defaults:
