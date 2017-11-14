@@ -25,6 +25,14 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $password;
+
+    /**@var string */
+    private $plainPassword;
+
+    /**
      * @return string The username
      */
     public function getUsername(): string
@@ -42,7 +50,15 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return 'admin';
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
     }
 
     /**
@@ -85,6 +101,7 @@ class User implements UserInterface
      */
     public function eraseCredentials(): void
     {
+        $this->plainPassword = null;
     }
 
     /**
@@ -102,4 +119,25 @@ class User implements UserInterface
     {
         return $this->id;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword(string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+        // changing the password, lets doctrine see that the
+        // entity is 'dirty' and needs to be persisted
+        // so we can listen on this event and populate password
+        $this->password = null;
+    }
+
 }
