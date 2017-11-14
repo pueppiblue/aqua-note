@@ -49,3 +49,6 @@ services:
     AppBundle\Twig\MarkdownExtension:
         arguments: ['@AppBundle\Service\MarkdownTransformer']
         tags: [{name: 'twig.extension'}]
+
+    AppBundle\Security\LoginFormAuthenticator:
+        public: true
