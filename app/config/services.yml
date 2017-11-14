@@ -52,3 +52,7 @@ services:
 
     AppBundle\Security\LoginFormAuthenticator:
         public: true
+
+    AppBundle\Doctrine\HashPasswordListener:
+        tags:
+            - { name: doctrine.event_subscriber }
