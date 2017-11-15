@@ -9,8 +9,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -31,22 +32,24 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     private $entityManager;
 
-    /**
-     * @var Router
-     */
     private $router;
+
+    private $encoder;
 
     /**
      * LoginFormAuthenticator constructor.
      * @param FormFactoryInterface $formFactory
      * @param EntityManagerInterface $entityManager
-     * @param Router $router
+     * @param RouterInterface $router
+     * @param UserPasswordEncoderInterface $encoder
      */
-    public function __construct(FormFactoryInterface $formFactory, EntityManagerInterface $entityManager, Router $router)
+    public function __construct(FormFactoryInterface $formFactory, EntityManagerInterface $entityManager,
+                                RouterInterface $router, UserPasswordEncoderInterface $encoder)
     {
         $this->formFactory = $formFactory;
         $this->entityManager = $entityManager;
         $this->router = $router;
+        $this->encoder = $encoder;
     }
 
     /**
@@ -113,9 +116,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function checkCredentials($credentials, UserInterface $user): bool
     {
-        $password = $credentials['_password'];
+        return  $this->encoder->isPasswordValid($user, $credentials['_password']);
 
-        return $password === $user->getPassword();
     }
 
     /**

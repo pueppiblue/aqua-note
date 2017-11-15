@@ -50,6 +50,7 @@ services:
         arguments: ['@AppBundle\Service\MarkdownTransformer']
         tags: [{name: 'twig.extension'}]
 
+    # again not needed since autowired
     AppBundle\Security\LoginFormAuthenticator:
         public: true
 
