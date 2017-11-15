@@ -33,6 +33,12 @@ class User implements UserInterface
     private $plainPassword;
 
     /**
+     * @ORM\Column(type="json_array")
+     */
+    private $roles = [];
+
+
+    /**
      * @return string The username
      */
     public function getUsername(): string
@@ -79,8 +85,22 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        return ['ROLE_USER'];
+        $roles =  $this->roles;
+        if (!\in_array('ROLE_USER', $roles, false)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return $roles;
     }
+
+    /**
+     * @param String[] $roles
+     */
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
 
     /**
      * Returns the salt that was originally used to encode the password.

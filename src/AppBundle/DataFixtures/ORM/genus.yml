@@ -23,3 +23,4 @@ AppBundle\Entity\User:
     genus.user_{1..10}:
         email: Nils.Freigang+<current()>@gmail.com
         plainPassword: admin
+        roles: ['ROLE_ADMIN']
