@@ -6,6 +6,7 @@ use AppBundle\Entity\Genus;
 use AppBundle\Form\GenusType;
 use Doctrine\ORM\OptimisticLockException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/admin")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class GenusAdminController extends Controller
 {
