@@ -14,6 +14,11 @@ security_logout:
     defaults:
         _controller: AppBundle:Security:logout
 
+user_register:
+    path: /register
+    defaults:
+        _controller: AppBundle:User:register
+
 app_genus_show:
     path: /genus/{genusName}
     defaults:

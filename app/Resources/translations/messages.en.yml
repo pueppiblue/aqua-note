@@ -1,0 +1,4 @@
+register:
+    h1: Register
+    submit: Confirm Registration
+    link: Register
