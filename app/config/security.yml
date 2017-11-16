@@ -28,6 +28,8 @@ security:
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
 
+            switch_user: ~
+
             guard:
                 authenticators:
                     - AppBundle\Security\LoginFormAuthenticator
