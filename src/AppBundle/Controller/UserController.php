@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\UserRegistrationForm;
+use AppBundle\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -23,12 +24,20 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', 'Registered new User: '. $user->getEmail());
-            return $this->redirectToRoute('homepage');
+            $this->addFlash('success', 'Registered new User: ' . $user->getEmail());
+
+            return $this->get('security.authentication.guard_handler')
+                ->authenticateUserAndHandleSuccess(
+                    $user,
+                    $request,
+                    $this->get(LoginFormAuthenticator::class),
+                    'main'
+                );
+
         }
 
         return $this->render('user/register.html.twig', [
-           'form' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
 }
