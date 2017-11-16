@@ -39,7 +39,7 @@ class GenusAdminController extends Controller
      */
     public function newAction(Request $request)
     {
-        $form = $this->createForm( GenusType::class);
+        $form = $this->createForm(GenusType::class);
 
         $form->handleRequest($request);
 
@@ -53,7 +53,9 @@ class GenusAdminController extends Controller
                 // todo: throw an error
             }
 
-            $this->addFlash('success', 'New Genus created');
+            $this->addFlash('success',
+                sprintf('New Genus created by %s', $this->getUser()->getEmail())
+            );
 
             return $this->redirectToRoute('admin_genus_list');
         }
@@ -72,7 +74,7 @@ class GenusAdminController extends Controller
      */
     public function editAction(Genus $genus, Request $request)
     {
-        $form = $this->createForm( GenusType::class, $genus);
+        $form = $this->createForm(GenusType::class, $genus);
 
         $form->handleRequest($request);
 
