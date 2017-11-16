@@ -7,8 +7,12 @@
                 <h1>{{ 'register.h1'|trans }}!</h1>
                 {{ form_start(form) }}
                 {{ form_row(form.email) }}
-                {{ form_row(form.plainPassword.first) }}
-                {{ form_row(form.plainPassword.second) }}
+                {{ form_row(form.plainPassword.first, {
+                    'label': 'Password'
+                }) }}
+                {{ form_row(form.plainPassword.second, {
+                    'label': 'Repeat Password'
+                }) }}
 
                 <button type="submit" class="btn btn-primary" formnovalidate>{{ 'register.submit'|trans({},'messages') }}</button>
                 {{ form_end(form) }}
